@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ninjam
+data:
+  ninjamsrv.cfg: |
+{{- range $k, $v := .Values.config }}
+    {{ if eq ($v | quote) "yes" }}
+      {{- $k }} {{ quote $v }}
+    {{- else }}
+      {{- $k }} {{ $v }}
+    {{- end }}
+{{- end }}
